@@ -99,8 +99,8 @@ DATABASES = {
 
 import dj_database_url
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
-DATABASES['default'] = dj_database_url.config(default='postgres://...')
-DATABASES['default'] = dj_database_url.parse('postgres://...', conn_max_age=600)
+DATABASES['default'] = dj_database_url.config(default='postgres://bmzjhlucrzmwef:267213f83c1a68b2781e76d9dbcbde28e4133964a83fe580677bc6a01c5ca10b@ec2-50-17-178-87.compute-1.amazonaws.com:5432/d6p5cu2ls7dcr4')
+DATABASES['default'] = dj_database_url.parse('postgres://bmzjhlucrzmwef:267213f83c1a68b2781e76d9dbcbde28e4133964a83fe580677bc6a01c5ca10b@ec2-50-17-178-87.compute-1.amazonaws.com:5432/d6p5cu2ls7dcr4', conn_max_age=600)
 
 
 # Password validation
