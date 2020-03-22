@@ -26,7 +26,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(',')
 
 
 # Application definition
@@ -55,6 +55,7 @@ SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -95,6 +96,11 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+import dj_database_url
+DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+DATABASES['default'] = dj_database_url.config(default='postgres://bmzjhlucrzmwef:267213f83c1a68b2781e76d9dbcbde28e4133964a83fe580677bc6a01c5ca10b@ec2-50-17-178-87.compute-1.amazonaws.com:5432/d6p5cu2ls7dcr4')
+DATABASES['default'] = dj_database_url.parse('postgres://bmzjhlucrzmwef:267213f83c1a68b2781e76d9dbcbde28e4133964a83fe580677bc6a01c5ca10b@ec2-50-17-178-87.compute-1.amazonaws.com:5432/d6p5cu2ls7dcr4', conn_max_age=600)
 
 
 # Password validation
@@ -148,6 +154,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 import django_heroku
 django_heroku.settings(locals())
+del DATABASES['default']['OPTIONS']['sslmode']
